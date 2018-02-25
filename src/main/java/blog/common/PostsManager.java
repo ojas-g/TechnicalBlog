@@ -1,6 +1,9 @@
 package blog.common;
 
 import blog.model.Post;
+import javafx.geometry.Pos;
+import jdk.nashorn.internal.scripts.JD;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.*;
 import java.util.*;
@@ -36,9 +39,24 @@ public class PostsManager {
         return (boolean) fileOperations.deleteFile(Constants.POST_FILE_PREFIX, postTitle);
     }
 
+    public static void main(String[] args) {
+
+        PostsManager postsManager = new PostsManager();
+        Post post = new Post();
+        post.setTitle("Test");
+        post.setBody("Containt in Test File");
+        post.setDate(new Date());
+        postsManager.writeToFile(post);
+    }
+
     public Post writeToFile(final Post post) {
 
-        return (Post) fileOperations.writeToFile(Constants.POST_FILE_PREFIX, post, String.valueOf(post.getTitle())); //TODO:
+        JDBCConnector jdbcConnector = JDBCConnector.getInstant();
+        String query = "insert into Posts(title, body, date) values( \'" + post.getTitle() + "\', \'"
+                + post.getBody() + "\', \'03-03-2017\')";
+
+        jdbcConnector.execute(query);
+        return null;
     }
 
     public Post getPost(final String prefix) {
