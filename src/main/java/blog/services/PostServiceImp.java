@@ -38,8 +38,8 @@ public class PostServiceImp implements PostService {
     }
 
     @Override
-    public Post findByTitle(String id) {
-        return postsManager.getPost(id);
+    public Post findById(Long id) {
+        return null;//postsManager.readPost(id);
     }
 
     @Override
@@ -50,6 +50,6 @@ public class PostServiceImp implements PostService {
     @Override
     public void deleteById(Post post) {
 
-        postsManager.deletePost(post.getTitle());
+        postsManager.deletePost(post.getId());
     }
 }
