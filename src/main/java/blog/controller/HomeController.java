@@ -19,7 +19,7 @@ public class HomeController {
     public String index(Model model) {
 
         List<Post> list = postService.firstThreePosts();
-        model.addAttribute("posts", list);
+        model.addAttribute("post", list);
         return "index";
     }
 }

@@ -8,9 +8,9 @@
 
 <h1>First 3 Posts</h1>
 <hr size="7" color="WHITE"/>
-<main id="posts">
+<main id="post">
 
-    <article th:each="p : ${posts}">
+    <article th:each="p : ${post}">
         <h2 class="title" th:text="${p.title}"> Post Title</h2>
         <div class="date">
             <i>Posted On</i>

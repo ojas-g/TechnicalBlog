@@ -1,7 +1,9 @@
 package blog.controller;
 
+import blog.common.CurrentUser;
 import blog.form.RegisterNewUser;
 import blog.model.Post;
+import blog.model.ProfilePhoto;
 import blog.model.User;
 import blog.services.PostService;
 import blog.services.UserService;
@@ -31,6 +33,7 @@ public class UserController {
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
     public String login(RegisterNewUser registerNewUser, Model model) {
         if (userService.authenticate(registerNewUser.getUsername(), registerNewUser.getPassword())) {
+            CurrentUser.getInstance().setUserName(registerNewUser.getUsername());
             return "redirect:/posts";
         }
 
@@ -41,7 +44,7 @@ public class UserController {
     public String logOut(Model model) {
 
         List<Post> list = postService.firstThreePosts();
-        model.addAttribute("posts", list);
+        model.addAttribute("post", list);
         return "index";
     }
 
@@ -58,6 +61,11 @@ public class UserController {
                 .hashString(registerNewUser.getPassword())
                 .toString();
         user.setPasswordHash(sha256hex);
+
+        ProfilePhoto profilePhoto = new ProfilePhoto();
+        profilePhoto.setId((int)System.currentTimeMillis()%1000);
+        profilePhoto.setProfilePhotoLocation("test");
+        user.setProfilePhoto(profilePhoto);
         userService.registerNewUser(user);
         return "redirect:/";
     }

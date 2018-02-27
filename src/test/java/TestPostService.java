@@ -16,7 +16,7 @@ public class TestPostService {
         post.setTitle("test1");
         post.setBody("This is part of unit test case");
         postService.create(post);
-        Post postUsingGetOperation = postService.findByTitle("test1");
+        Post postUsingGetOperation = postService.findById(post.getId());
         Assert.assertEquals(postUsingGetOperation.getTitle(),post.getTitle());
         Assert.assertEquals(postUsingGetOperation.getBody(),post.getBody());
     }
