@@ -5,9 +5,15 @@ import java.sql.*;
 public class JDBCConnector {
 
     private static final String DB_DRIVER = "org.postgresql.Driver";
+<<<<<<< HEAD
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/technicalblog";
     private static final String USER = "postgres";
     private static final String PASSWOR = "123";
+=======
+    private static final String DB_URL = "jdbc:postgresql://localhost:5431/technicalblog";
+    private static final String USER = "username";
+    private static final String PASSWOR = "password";
+>>>>>>> f71acf17a5d22d7692c37d425f11d37175d246c7
     private Connection connection = null;
     private Statement statement = null;
 
@@ -15,7 +21,11 @@ public class JDBCConnector {
         try {
             Class.forName(DB_DRIVER);
 
+<<<<<<< HEAD
             connection = DriverManager.getConnection(DB_URL,USER,PASSWOR);
+=======
+            connection = DriverManager.getConnection(DB_URL);
+>>>>>>> f71acf17a5d22d7692c37d425f11d37175d246c7
             statement = connection.createStatement();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

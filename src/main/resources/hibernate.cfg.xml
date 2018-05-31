@@ -6,9 +6,15 @@
     <session-factory>
 
         <property name="connection.driver_class">org.postgresql.Driver</property>
+<<<<<<< HEAD
         <property name="connection.url">jdbc:postgresql://localhost:5432/technicalblog</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">123</property>
+=======
+        <property name="connection.url">jdbc:postgresql://localhost:5431/technicalblog</property>
+        <!--<property name="hibernate.connection.username">root</property>-->
+        <!--<property name="hibernate.connection.password"></property>-->
+>>>>>>> f71acf17a5d22d7692c37d425f11d37175d246c7
         <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgresPlusDialect</property>
         <property name="hibernate.current_session_context_class">managed</property>

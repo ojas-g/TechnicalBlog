@@ -45,12 +45,15 @@
         </dependency>
 
         <dependency>
+<<<<<<< HEAD
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
 
 
         <dependency>
+=======
+>>>>>>> f71acf17a5d22d7692c37d425f11d37175d246c7
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>4.3.8.Final</version>
