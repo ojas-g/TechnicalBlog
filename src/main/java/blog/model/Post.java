@@ -1,5 +1,7 @@
 package blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,9 +26,11 @@ public class Post implements Serializable {
     private Date date = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Category> categoryList =new ArrayList<Category>();
 
     public Post() { }

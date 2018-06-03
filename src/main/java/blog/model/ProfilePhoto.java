@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ProfilePhoto")
+@Table(name = "Profile_Photo")
 public class ProfilePhoto implements Serializable{
 
     @Id

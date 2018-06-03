@@ -1,5 +1,7 @@
 package blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -13,6 +15,7 @@ public class Category {
     private String categoryType;
 
     @ManyToMany(mappedBy = "categoryList")
+    @JsonIgnore
     private List<Post> posts;
 
     public int getId() {

@@ -1,5 +1,8 @@
 package blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +14,8 @@ public class User implements Serializable {
 
     @Id
     @Column
-    private String userName;
+    private String user_Name;
+
 
     @Column
     private String passwordHash;
@@ -20,25 +24,27 @@ public class User implements Serializable {
     private String fullName;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JsonManagedReference
     private ProfilePhoto profilePhoto;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
     private List<Post> posts = new ArrayList<Post>();
 
     public User() {
     }
 
     public User(String userName, String fullName) {
-        this.userName = userName;
+        this.user_Name = userName;
         this.fullName = fullName;
     }
 
     public String getUserName() {
-        return userName;
+        return user_Name;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.user_Name = userName;
     }
 
     public String getPasswordHash() {

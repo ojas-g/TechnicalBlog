@@ -2,6 +2,7 @@ package blog.common;
 
 import blog.model.ProfilePhoto;
 import blog.model.User;
+import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import org.hibernate.Session;
 
@@ -38,7 +39,7 @@ public class UserManager extends SessionManager {
         String hashOfPassword = userFromDB.getPasswordHash();
 
         String hashOfUserEnteredPassword = Hashing.sha256()
-                .hashString(password)
+          .hashString(password, Charsets.US_ASCII)
                 .toString();
 
         return hashOfPassword.equals(hashOfUserEnteredPassword);
@@ -56,7 +57,7 @@ public class UserManager extends SessionManager {
         String hashOfUserEnteredPassword;
         if(!isHash) {
             hashOfUserEnteredPassword = Hashing.sha256()
-                    .hashString(password)
+                    .hashString(password,Charsets.US_ASCII)
                     .toString();
 
         } else {

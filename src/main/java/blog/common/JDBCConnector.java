@@ -4,66 +4,49 @@ import java.sql.*;
 
 public class JDBCConnector {
 
-    private static final String DB_DRIVER = "org.postgresql.Driver";
-<<<<<<< HEAD
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/technicalblog";
-    private static final String USER = "postgres";
-    private static final String PASSWOR = "123";
-=======
-    private static final String DB_URL = "jdbc:postgresql://localhost:5431/technicalblog";
-    private static final String USER = "username";
-    private static final String PASSWOR = "password";
->>>>>>> f71acf17a5d22d7692c37d425f11d37175d246c7
-    private Connection connection = null;
-    private Statement statement = null;
+  private static final String DB_DRIVER = "org.postgresql.Driver";
+  private static final String DB_URL = "jdbc:postgresql://localhost:5432/technicalblog";
+  private static final String USER = "postgres";
+  private static final String PASSWOR = "123";
+  private Connection connection = null;
+  private Statement statement = null;
 
-    private JDBCConnector() {
-        try {
-            Class.forName(DB_DRIVER);
+  private JDBCConnector() {
+    try {
+      Class.forName(DB_DRIVER);
 
-<<<<<<< HEAD
-            connection = DriverManager.getConnection(DB_URL,USER,PASSWOR);
-=======
-            connection = DriverManager.getConnection(DB_URL);
->>>>>>> f71acf17a5d22d7692c37d425f11d37175d246c7
-            statement = connection.createStatement();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+      connection = DriverManager.getConnection(DB_URL, USER, PASSWOR);
+      statement = connection.createStatement();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static JDBCConnector jdbcConnector = new JDBCConnector();
+
+  public static JDBCConnector getInstant() {
+    return jdbcConnector;
+  }
+
+  public ResultSet executeQuery(final String query) {
+
+    try {
+      return statement.executeQuery(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public void execute(final String query) {
+    try {
+      statement.execute(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
 
-    private static JDBCConnector jdbcConnector = new JDBCConnector();
+  }
 
-    public static JDBCConnector getInstant() {
-        return jdbcConnector;
-    }
-
-    public ResultSet executeQuery(final String query) {
-
-        try {
-            return statement.executeQuery(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void execute(final String query) {
-        try {
-            statement.execute(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void main(String[] args) {
-
-        JDBCConnector jdbcConnector = JDBCConnector.getInstant();
-//        jdbcConnector.execute("CREATE DATABASE technicalblog");
-
-//        jdbcConnector.execute("create table Posts (id SERIAL PRIMARY KEY, title varchar, body varchar, date timestamp)");
-    }
 }

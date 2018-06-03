@@ -51,11 +51,6 @@ public class PostsManager extends SessionManager {
         return post;
     }
 
-    public static void main(String[] args) {
-        PostsManager postsManager = new PostsManager();
-        postsManager.numberOfPosts();
-        System.out.printf("");
-    }
 
     public List<Post> getThreePosts() {
 

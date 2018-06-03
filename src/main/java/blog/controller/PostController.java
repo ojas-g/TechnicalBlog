@@ -26,7 +26,7 @@ public class PostController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("posts")
+    @RequestMapping("/posts")
     public String getAllPosts(Model model) {
         List<Post> list = postService.findAll();
         model.addAttribute("posts", list);

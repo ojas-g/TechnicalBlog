@@ -7,6 +7,7 @@ import blog.model.ProfilePhoto;
 import blog.model.User;
 import blog.services.PostService;
 import blog.services.UserService;
+import com.google.common.base.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,7 @@ public class UserController {
     @RequestMapping("/users/login")
     private String loginPage(RegisterNewUser registerNewUser) {
 
-        return "users/login";
+        return "/users/login";
     }
 
     @RequestMapping(value = "/users/login", method = RequestMethod.POST)
@@ -58,9 +59,10 @@ public class UserController {
 
         User user = new User(registerNewUser.getUsername(), registerNewUser.getFullName());
         String sha256hex = Hashing.sha256()
-                .hashString(registerNewUser.getPassword())
+      .hashString(registerNewUser.getPassword(), Charsets.US_ASCII)
                 .toString();
-        user.setPasswordHash(sha256hex);
+
+      user.setPasswordHash(sha256hex);
 
         ProfilePhoto profilePhoto = new ProfilePhoto();
         profilePhoto.setId((int)System.currentTimeMillis()%1000);
