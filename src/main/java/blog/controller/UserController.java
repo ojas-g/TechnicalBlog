@@ -54,6 +54,8 @@ public class UserController {
         return "users/register";
     }
 
+
+
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     public String registerUser(RegisterNewUser registerNewUser) {
 

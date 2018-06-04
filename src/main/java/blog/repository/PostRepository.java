@@ -30,6 +30,18 @@ public interface PostRepository extends CrudRepository<Post, Integer>{
   @Query(nativeQuery = true,value="DELETE FROM POST WHERE ID=?1 ")
   void deletePostById(int id);
 
+  @Transactional
+  @Modifying
+  @Query(nativeQuery = true,value="INSERT INTO POST (BODY,date,TITLE,USER_user_NAME) VALUES (?1,NOW(),?2,?3)")
+  void addPostValues(String body,String title,String username);
+
+  @Transactional
+  @Modifying
+  @Query(nativeQuery = true,value="update post set body=?1,title=?2,date=now() where id=?3")
+  void editPostValues(String body,String title,int id);
+
+  @Query(nativeQuery = true,value="select user_user_name from post where id=?1")
+  String findUserByPostId(int id);
 
 }
 //public interface ShowsRepository extends CrudRepository<Shows, Integer> {
