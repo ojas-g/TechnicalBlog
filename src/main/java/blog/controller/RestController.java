@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import blog.model.Comments;
 import blog.model.Post;
 import blog.model.ProfilePhoto;
 import blog.model.User;
@@ -35,6 +36,16 @@ public class RestController {
   @GetMapping("/api/allusers/")
   public Iterable<User> getAllUsers() {
     return  userRepo.findAll();
+  }
+
+  @GetMapping("/api/allcomments/")
+  public Iterable<String> getAllComments(@RequestParam("postid") int id) {
+    return  postRepo.getCommentbyPost(id);
+  }
+
+  @GetMapping("/api/likesOnPost/")
+  public Iterable<String> getAllLikes(@RequestParam("postid") int id) {
+    return  postRepo.getLikesbyPost(id);
   }
 
   @DeleteMapping("/api/deletepost/")
@@ -95,6 +106,42 @@ public class RestController {
     }
 
 
+  }
+
+  @PostMapping("/api/likes/")
+  public String likePost(@RequestParam("username") String uname,@RequestParam("password") String password,@RequestParam("post id") int postId) {
+
+    String passwordByUser = String.valueOf(userRepo.findUserPassword(uname));
+
+    String sha256hex = Hashing.sha256()
+      .hashString(password, Charsets.US_ASCII)
+      .toString();
+    if (!(sha256hex.equalsIgnoreCase(passwordByUser))) {
+      return "Invalid credentials";
+    }
+
+
+    postRepo.addLikes(postId,uname);
+
+  return "You liked postId"+postId+"successfully";
+  }
+
+  @PostMapping("/api/comment/")
+  public String commentOnPost(@RequestParam("username") String uname,@RequestParam("password") String password,@RequestParam("comment") String comment,@RequestParam("postid") int postId) {
+
+    String passwordByUser = String.valueOf(userRepo.findUserPassword(uname));
+
+    String sha256hex = Hashing.sha256()
+      .hashString(password, Charsets.US_ASCII)
+      .toString();
+    if (!(sha256hex.equalsIgnoreCase(passwordByUser))) {
+      return "Invalid credentials";
+    }
+
+
+    postRepo.addComment(postId,uname,comment);
+
+    return "You liked postId"+postId+"successfully";
   }
 
   @PostMapping("/api/login/")

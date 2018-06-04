@@ -29,8 +29,8 @@ public class Post implements Serializable {
     @JsonIgnore
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany
+      @JsonIgnore
     private List<Category> categoryList =new ArrayList<Category>();
 
     public Post() { }

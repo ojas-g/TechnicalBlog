@@ -1,6 +1,7 @@
 package blog.repository;
 
 
+import blog.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,11 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import blog.model.Post;
-import blog.model.User;
-import blog.model.ProfilePhoto;
-import blog.model.Category;
 
 
 import javax.persistence.Cacheable;
@@ -40,28 +36,22 @@ public interface PostRepository extends CrudRepository<Post, Integer>{
   @Query(nativeQuery = true,value="update post set body=?1,title=?2,date=now() where id=?3")
   void editPostValues(String body,String title,int id);
 
+  @Transactional
+  @Modifying
+  @Query(nativeQuery = true,value="insert into likes (post_id,user_name) values (?1,?2)")
+  void addLikes(int postid,String uname);
+
+  @Transactional
+  @Modifying
+  @Query(nativeQuery = true,value="insert into comments (post_id,user_name,comment) values (?1,?2,?3)")
+  void addComment(int postid,String uname,String comment);
+
   @Query(nativeQuery = true,value="select user_user_name from post where id=?1")
   String findUserByPostId(int id);
 
+  @Query(nativeQuery = true,value="select * from comments where post_id=?1")
+  Iterable<String> getCommentbyPost(int id);
+
+  @Query(nativeQuery = true,value="select * from likes where post_id=?1")
+  Iterable<String> getLikesbyPost(int id);
 }
-//public interface ShowsRepository extends CrudRepository<Shows, Integer> {
-//
-//
-//  @Query(nativeQuery = true,value="SELECT  * FROM SHOWS WHERE UPPER(CITY) = UPPER (?1) ")
-//  List<Shows> findAllShowsByCity(String city1);
-//
-//  @Query(nativeQuery = true,value="SELECT  * FROM SHOWS WHERE SHOWID=?1 AND AVAILABILITY >= ?2 AND date>=NOW()  ")
-//  String findTicketAvailability(int showId,int quantity);
-//
-//  @Transactional
-//  @Modifying
-//  @Query(nativeQuery = true,value="UPDATE SHOWS SET AVAILABILITY=(AVAILABILITY-?2) WHERE SHOWID=?1")
-//  void findBooking(int showId,int quantity);
-//
-//  @Transactional
-//  @Modifying
-//  @Query(nativeQuery = true,value="INSERT INTO SHOWS VALUES (DEFAULT,?1,?2,?3,?4,?5)")
-//  void addNewShows(int availability,String city,String Language,Date date1,int movieid);
-//}
-
-
